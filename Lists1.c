@@ -57,7 +57,7 @@ void Sl_list_Free(sl_list **head)
 
 /**
  * CLI_node_end_Add - adds a line command at the
- * line_list end.
+ * CLI_list end.
  * @head: head of the linked list.
  * @line: command line.
  * Return: address of the head.
