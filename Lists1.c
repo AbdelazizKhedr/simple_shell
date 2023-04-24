@@ -66,7 +66,7 @@ CLI_list*CLI_node_end_Add(CLI_list**head, char *line)
 {
 	CLI_list*new, *temp;
 
-	new = malloc(sizeof(line_list));
+	new = malloc(sizeof(CLI_list));
 	if (new == NULL)
 		return (NULL);
 
