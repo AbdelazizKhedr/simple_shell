@@ -35,20 +35,20 @@ int _strlen(const char *str)
 
 /**
  * cmp_chars - compare characters of strings
- * @str: input string.
+ * @string: input string.
  * @delimit: delimiter.
  *
  * Return: 1 if are equals, 0 if not.
  */
-int cmp_chars(char str[], const char *delimit)
+int cmp_chars(char string[], const char *delimit)
 {
 	unsigned int i, j, k;
 
-	for (i = 0, k = 0; str[i]; i++)
+	for (i = 0, k = 0; string[i]; i++)
 	{
 		for (j = 0; delimit[j]; j++)
 		{
-			if (str[i] == delimit[j])
+			if (string[i] == delimit[j])
 			{
 				k++;
 				break;
@@ -61,13 +61,13 @@ int cmp_chars(char str[], const char *delimit)
 }
 
 /**
- * _strtok - splits a string by some delimiter.
- * @str: input string.
+ * _strtok - split string by delimiter.
+ * @string: input string.
  * @delimit: delimiter.
  *
  * Return: string splited.
  */
-char *_strtok(char str[], const char *delimit)
+char *_strtok(char string[], const char *delimit)
 {
 	static char *splitted, *str_end;
 	char *str_start;
@@ -75,11 +75,11 @@ char *_strtok(char str[], const char *delimit)
 
 	if (str != NULL)
 	{
-		if (cmp_chars(str, delimit))
+		if (cmp_chars(string, delimit))
 			return (NULL);
-		splitted = str;
-		i = _strlen(str);
-		str_end = &str[i];
+		splitted = string;
+		i = _strlen(string);
+		str_end = &string[i];
 	}
 	str_start = splitted;
 	if (str_start == str_end)
