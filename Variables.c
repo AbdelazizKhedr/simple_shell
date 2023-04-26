@@ -1,19 +1,19 @@
 #include "main.h"
 
 /**
- * check_env - checks if the typed variable is an env variable
+ * check_envir - checks if the typed variable is an env variable
  *
  * @h: head of linked list
  * @in: inp string
- * @data: data structure
+ * @Data: data structure
  * Return: no return
  */
-void check_env(S_Var **h, char *in, data_shell *data)
+void check_envir(S_Var **h, char *in, Data_shell *Data)
 {
-	int row, chr, j, lval;
+	int row, chr, j, lval;	
 	char **_envr;
 
-	_envr = data->_envir;
+	_envr = Data->_envir;
 	for (row = 0; _envr[row]; row++)
 	{
 		for (j = 1, chr = 0; _envr[row][chr]; chr++)
@@ -21,7 +21,7 @@ void check_env(S_Var **h, char *in, data_shell *data)
 			if (_envr[row][chr] == '=')
 			{
 				lval = _strlen(_envr[row] + chr + 1);
-				add_rvar_node(h, j, _envr[row] + chr + 1, lval);
+				SVar_node_Add(h, j, _envr[row] + chr + 1, lval);
 				return;
 			}
 
@@ -38,45 +38,44 @@ void check_env(S_Var **h, char *in, data_shell *data)
 			break;
 	}
 
-	add_rvar_node(h, j, NULL, 0);
+	SVar_node_Add(h, j, NULL, 0);
 }
 
 /**
- * check_vars - check if the typed variable is $$ or $?
- *
+ * check_variables - check if the typed variable is $$ or $?
  * @h: head of the linked list
  * @in: inp string
  * @st: last stat of the Shell
- * @data: data structure
+ * @Data: data structure
  * Return: no return
  */
-int check_variables(S_Var **h, char *in, char *st, data_shell *data)
+int check_variables(S_Var **h, char *in, char *st, Data_shell *Data)
 {
 	int i, lst, lpd;
 
 	lst = _strlen(st);
-	lpd = _strlen(data->PID);
+	lpd = _strlen(Data->PID);
 
 	for (i = 0; in[i]; i++)
 	{
 		if (in[i] == '$')
 		{
 			if (in[i + 1] == '?')
-				add_rvar_node(h, 2, st, lst), i++;
+				SVar_node_Add(h, 2, st, lst), i++;
 			else if (in[i + 1] == '$')
-				add_rvar_node(h, 2, data->PID, lpd), i++;
+				SVar_node_Add(h, 2, Data->PID, lpd), i++;
 			else if (in[i + 1] == '\n')
-				add_rvar_node(h, 0, NULL, 0);
+				SVar_node_Add(h, 0, NULL, 0);
 			else if (in[i + 1] == '\0')
-				add_rvar_node(h, 0, NULL, 0);
+				SVar_node_Add(h, 0, NULL, 0);
 			else if (in[i + 1] == ' ')
-				add_rvar_node(h, 0, NULL, 0);
+				SVar_node_Add(h, 0, NULL, 0);
 			else if (in[i + 1] == '\t')
-				add_rvar_node(h, 0, NULL, 0);
+				SVar_node_Add(h, 0, NULL, 0);
 			else if (in[i + 1] == ';')
-				add_rvar_node(h, 0, NULL, 0);
+				SVar_node_Add(h, 0, NULL, 0);
 			else
-				check_env(h, in + i, data);
+				check_envir(h, in + i, Data);
 		}
 	}
 
@@ -85,7 +84,6 @@ int check_variables(S_Var **h, char *in, char *st, data_shell *data)
 
 /**
  * replaced_inp - replaces string into variables
- *
  * @head: head of the linked list
  * @inp: inp string
  * @new_inp: new inp string (replaced)
@@ -117,7 +115,7 @@ char *replaced_inp(S_Var **head, char *inp, char *new_inp, int nlen)
 			{
 				for (k = 0; k < indx->len_val_var; k++)
 				{
-					new_inp[i] = indx->val[k];
+					new_inp[i] = indx->val_var[k];
 					i++;
 				}
 				j += (indx->len_var);
@@ -137,21 +135,20 @@ char *replaced_inp(S_Var **head, char *inp, char *new_inp, int nlen)
 
 /**
  * rep_var - calls functions to replace string into vars
- *
  * @inp: inp string
- * @Datashell: data structure
+ * @Datashell: Data structure
  * Return: replaced string
  */
-char *rep_var(char *inp, data_shell *Datashell)
+char *rep_var(char *inp, Data_shell *Datashell)
 {
 	S_Var *head, *indx;
 	char *stat, *new_inp;
 	int olen, nlen;
 
-	stat = aux_itoa(Datashell->stat);
+	stat = itoa(Datashell->stat);
 	head = NULL;
 
-	olen = check_vars(&head, inp, stat, Datashell);
+	olen = check_variables(&head, inp, stat, Datashell);
 
 	if (head == NULL)
 	{
@@ -177,7 +174,8 @@ char *rep_var(char *inp, data_shell *Datashell)
 
 	free(inp);
 	free(stat);
-	free_rvar_list(&head);
+	SVar_list_Free(&head);
 
 	return (new_inp);
 }
+
