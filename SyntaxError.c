@@ -118,8 +118,8 @@ void print_synt_err(Data_shell *Datashell, char *inp, int i, int bool)
 
 	msg2 = ": Syntax error: \"";
 	msg3 = "\" unexpected\n";
-	counter = aux_itoa(Datashell->counter);
-	length = _strlen(Datashell->av[0]) + _strlen(counter);
+	counter = itoa(Datashell->counter);
+	length = _strlen(Datashell->argv[0]) + _strlen(counter);
 	length += _strlen(msg) + _strlen(msg2) + _strlen(msg3) + 2;
 
 	error = malloc(sizeof(char) * (length + 1));
@@ -128,7 +128,7 @@ void print_synt_err(Data_shell *Datashell, char *inp, int i, int bool)
 		free(counter);
 		return;
 	}
-	_strcpy(error, Datashell->av[0]);
+	_strcpy(error, Datashell->argv[0]);
 	_strcat(error, ": ");
 	_strcat(error, counter);
 	_strcat(error, msg2);
