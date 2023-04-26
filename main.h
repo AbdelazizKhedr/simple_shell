@@ -115,7 +115,7 @@ void CLI_list_Free(CLI_list **head);
 void Sl_list_Free(sl_list **head);
 
 /* These are prototypes of  aux_lists2.c Functions */
-S_Var *SVar_node_ Add(S_Var **head, int lvar, char *var, int lval);
+S_Var *SVar_node_Add(S_Var **head, int lvar, char *var, int lval);
 void SVar_list_Free(S_Var **head);
 
 /* These are prototypes of  aux_mem.c Functions */
