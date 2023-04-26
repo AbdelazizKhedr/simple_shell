@@ -69,7 +69,7 @@ int _setenvirr(Data_shell *Datashell)
 
 	if (Datashell->argss[1] == NULL || Datashell->argss[2] == NULL)
 	{
-		get_error(Datashell, -1);
+		Get_the_errors(Datashell, -1);
 		return (1);
 	}
 
@@ -93,7 +93,7 @@ int _unsetenvirr(Data_shell *Datashell)
 
 	if (Datashell->argss[1] == NULL)
 	{
-		get_error(Datashell, -1);
+		Get_the_errors(Datashell, -1);
 		return (1);
 	}
 	k = -1;
@@ -109,7 +109,7 @@ int _unsetenvirr(Data_shell *Datashell)
 	}
 	if (k == -1)
 	{
-		get_error(Datashell, -1);
+		Get_the_errors(Datashell, -1);
 		return (1);
 	}
 	realloc_environ = malloc(sizeof(char *) * (i));
