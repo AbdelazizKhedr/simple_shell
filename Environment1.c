@@ -61,7 +61,7 @@ char *_getenvirr(const char *name, char **_envir)
  * @Datashell: data relevant.
  * Return: 1 on success.
  */
-int _envirr(data_shell *Datashell)
+int _envirr(Data_shell *Datashell)
 {
 	int i, j;
 
