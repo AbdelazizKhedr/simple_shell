@@ -84,16 +84,16 @@ char *_strchr(char *s, char c)
  * @accept: accepted bytes.
  * Return: the number of accepted bytes.
  */
-int _strspn(char *s, char *accept)
+int _strspn(char *s, char *Accept)
 {
 	int i, j, bool;
 
 	for (i = 0; *(s + i) != '\0'; i++)
 	{
 		bool = 1;
-		for (j = 0; *(accept + j) != '\0'; j++)
+		for (j = 0; *(Accept + j) != '\0'; j++)
 		{
-			if (*(s + i) == *(accept + j))
+			if (*(s + i) == *(Accept + j))
 			{
 				bool = 0;
 				break;
