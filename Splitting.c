@@ -59,11 +59,11 @@ void Add_node(sl_list **head_s, CLI_list **head_l, char *inp)
 	for (i = 0; inp[i]; i++)
 	{
 		if (inp[i] == ';')
-			add_sep_node_end(head_s, inp[i]);
+			Sl_node_end_Add(head_s, inp[i]);
 
 		if (inp[i] == '|' || inp[i] == '&')
 		{
-			add_sep_node_end(head_s, inp[i]);
+			Sl_node_end_Add(head_s, inp[i]);
 			i++;
 		}
 	}
@@ -71,7 +71,7 @@ void Add_node(sl_list **head_s, CLI_list **head_l, char *inp)
 	line = _strtok(inp, ";|&");
 	do {
 		line = Character_swap(line, 1);
-		add_line_node_end(head_l, line);
+		CLI_node_end_Add(head_l, line);
 		line = _strtok(NULL, ";|&");
 	} while (line != NULL);
 
@@ -96,22 +96,22 @@ void to_next(sl_list **list_s, CLI_list **list_l, Data_shell *Datashell)
 
 	while (ls_s != NULL && loop_sep)
 	{
-		if (Datashell->status == 0)
+		if (Datashell->stat == 0)
 		{
-			if (ls_s->separator == '&' || ls_s->separator == ';')
+			if (ls_s->separrator == '&' || ls_s->separrator == ';')
 				loop_sep = 0;
-			if (ls_s->separator == '|')
-				ls_l = ls_l->next, ls_s = ls_s->next;
+			if (ls_s->separrator == '|')
+				ls_l = ls_l->next_node, ls_s = ls_s->next_node;
 		}
 		else
 		{
-			if (ls_s->separator == '|' || ls_s->separator == ';')
+			if (ls_s->separrator == '|' || ls_s->separrator == ';')
 				loop_sep = 0;
-			if (ls_s->separator == '&')
-				ls_l = ls_l->next, ls_s = ls_s->next;
+			if (ls_s->separrator == '&')
+				ls_l = ls_l->next_node, ls_s = ls_s->next_node;
 		}
 		if (ls_s != NULL && !loop_sep)
-			ls_s = ls_s->next;
+			ls_s = ls_s->next_node;
 	}
 
 	*list_s = ls_s;
@@ -143,9 +143,9 @@ int split_all_commands(Data_shell *Datashell, char *inp)
 	while (list_l != NULL)
 	{
 		Datashell->inp = list_l->line;
-		Datashell->args = Split_the_line(Datashell->inp);
-		loop = exec_line(Datashell);
-		free(Datashell->args);
+		Datashell->argss = Split_the_line(Datashell->inp);
+		loop = execute_line(Datashell);
+		free(Datashell->argss);
 
 		if (loop == 0)
 			break;
@@ -153,11 +153,11 @@ int split_all_commands(Data_shell *Datashell, char *inp)
 		to_next(&list_s, &list_l, Datashell);
 
 		if (list_l != NULL)
-			list_l = list_l->next;
+			list_l = list_l->next_node;
 	}
 
-	free_sep_list(&head_s);
-	free_line_list(&head_l);
+	Sl_list_Free(&head_s);
+	CLI_list_Free(&head_l);
 
 	if (loop == 0)
 		return (0);
