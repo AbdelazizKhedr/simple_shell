@@ -35,7 +35,7 @@ char *_whichone(char *cmd, char **_envir)
 	int len_dir, len_cmd, i;
 	struct stat st;
 
-	path = _getenv("PATH", _envir);
+	path = _getenvirr("PATH", _envir);
 	if (path)
 	{
 		ptr_path = _strdup(path);
@@ -78,7 +78,7 @@ char *_whichone(char *cmd, char **_envir)
  * @Datashell: data structure
  * Return: 0 if is not an executable, other number if it does
  */
-int is_exe(data_shell *Datashell)
+int is_exe(Data_shell *Datashell)
 {
 	struct stat st;
 	int i;
@@ -113,22 +113,21 @@ int is_exe(data_shell *Datashell)
 	{
 		return (i);
 	}
-	get_error(Datashell, 127);
+	Get_the_errors(Datashell, 127);
 	return (-1);
 }
 
 /**
  * check_err_cmd - verifies if user has permissions to access
- *
  * @dir: destination directory
  * @Datashell: data structure
  * Return: 1 if there is an error, 0 if not
  */
-int check_err_cmd(char *dir, data_shell *Datashell)
+int check_err_cmd(char *dir, Data_shell *Datashell)
 {
 	if (dir == NULL)
 	{
-		get_error(Datashell, 127);
+		Get_the_errors(Datashell, 127);
 		return (1);
 	}
 
