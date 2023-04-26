@@ -57,12 +57,12 @@ void sh_loop(Data_shell *Datashell)
 
 			if (check_synt_err(Datashell, input) == 1)
 			{
-				Datashell->status = 2;
+				Datashell->stat = 2;
 				free(input);
 				continue;
 			}
 			input = rep_var(input, Datashell);
-			loop = split_commands(Datashell, input);
+			loop = split_all_commands(Datashell, input);
 			Datashell->counter += 1;
 			free(input);
 		}
