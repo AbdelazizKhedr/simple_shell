@@ -7,18 +7,18 @@
  *
  * Return: no return
  */
-void cd_dot(data_shell *Datashell)
+void cd_dot(Data_shell *Datashell)
 {
 	char pwd[PATH_MAX];
 	char *dir, *cp_pwd, *cp_strtok_pwd;
 
 	getcwd(pwd, sizeof(pwd));
 	cp_pwd = _strdup(pwd);
-	set_env("OLDPWD", cp_pwd, Datashell);
+	set_envirr("OLDPWD", cp_pwd, Datashell);
 	dir = Datashell->argss[1];
 	if (_strcmp(".", dir) == 0)
 	{
-		set_env("PWD", cp_pwd, Datashell);
+		set_envirr("PWD", cp_pwd, Datashell);
 		free(cp_pwd);
 		return;
 	}
@@ -28,7 +28,7 @@ void cd_dot(data_shell *Datashell)
 		return;
 	}
 	cp_strtok_pwd = cp_pwd;
-	rev_string(cp_strtok_pwd);
+	mex_string(cp_strtok_pwd);
 	cp_strtok_pwd = _strtok(cp_strtok_pwd, "/");
 	if (cp_strtok_pwd != NULL)
 	{
@@ -40,12 +40,12 @@ void cd_dot(data_shell *Datashell)
 	if (cp_strtok_pwd != NULL)
 	{
 		chdir(cp_strtok_pwd);
-		set_env("PWD", cp_strtok_pwd, Datashell);
+		set_envirr("PWD", cp_strtok_pwd, Datashell);
 	}
 	else
 	{
 		chdir("/");
-		set_env("PWD", "/", Datashell);
+		set_envirr("PWD", "/", Datashell);
 	}
 	Datashell->stat = 0;
 	free(cp_pwd);
@@ -58,7 +58,7 @@ void cd_dot(data_shell *Datashell)
  * @Datashell: data relevant (directories)
  * Return: no return
  */
-void cd_forword(data_shell *Datashell)
+void cd_forword(Data_shell  *Datashell)
 {
 	char pwd[PATH_MAX];
 	char *dir, *cp_pwd, *cp_dir;
@@ -68,15 +68,15 @@ void cd_forword(data_shell *Datashell)
 	dir = Datashell->argss[1];
 	if (chdir(dir) == -1)
 	{
-		get_error(Datashell, 2);
+		Get_the_errors(Datashell, 2);
 		return;
 	}
 
 	cp_pwd = _strdup(pwd);
-	set_env("OLDPWD", cp_pwd, Datashell);
+	set_envirr("OLDPWD", cp_pwd, Datashell);
 
 	cp_dir = _strdup(dir);
-	set_env("PWD", cp_dir, Datashell);
+	set_envirr("PWD", cp_dir, Datashell);
 
 	free(cp_pwd);
 	free(cp_dir);
@@ -92,7 +92,7 @@ void cd_forword(data_shell *Datashell)
  * @Datashell: data relevant (environ)
  * Return: no return
  */
-void cd_backword(data_shell *Datashell)
+void cd_backword(Data_shell *Datashell)
 {
 	char pwd[PATH_MAX];
 	char *p_pwd, *p_oldpwd, *cp_pwd, *cp_oldpwd;
@@ -100,21 +100,21 @@ void cd_backword(data_shell *Datashell)
 	getcwd(pwd, sizeof(pwd));
 	cp_pwd = _strdup(pwd);
 
-	p_oldpwd = _getenv("OLDPWD", Datashell->_envir);
+	p_oldpwd = _getenvirr("OLDPWD", Datashell->_envir);
 
 	if (p_oldpwd == NULL)
 		cp_oldpwd = cp_pwd;
 	else
 		cp_oldpwd = _strdup(p_oldpwd);
 
-	set_env("OLDPWD", cp_pwd, Datashell);
+	set_envirr("OLDPWD", cp_pwd, Datashell);
 
 	if (chdir(cp_oldpwd) == -1)
-		set_env("PWD", cp_pwd, Datashell);
+		set_envirr("PWD", cp_pwd, Datashell);
 	else
-		set_env("PWD", cp_oldpwd, Datashell);
+		set_envirr("PWD", cp_oldpwd, Datashell);
 
-	p_pwd = _getenv("PWD", Datashell->_envir);
+	p_pwd = _getenvirr("PWD", Datashell->_envir);
 
 	write(STDOUT_FILENO, p_pwd, _strlen(p_pwd));
 	write(STDOUT_FILENO, "\n", 1);
@@ -134,7 +134,7 @@ void cd_backword(data_shell *Datashell)
  * @Datashell: data relevant (environ)
  * Return: no return
  */
-void cd_home(data_shell *Datashell)
+void cd_home(Data_shell *Datashell)
 {
 	char *p_pwd, *home;
 	char pwd[PATH_MAX];
@@ -142,24 +142,24 @@ void cd_home(data_shell *Datashell)
 	getcwd(pwd, sizeof(pwd));
 	p_pwd = _strdup(pwd);
 
-	home = _getenv("HOME", Datashell->_envir);
+	home = _getenvirr("HOME", Datashell->_envir);
 
 	if (home == NULL)
 	{
-		set_env("OLDPWD", p_pwd, Datashell);
+		set_envirr("OLDPWD", p_pwd, Datashell);
 		free(p_pwd);
 		return;
 	}
 
 	if (chdir(home) == -1)
 	{
-		get_error(Datashell, 2);
+		Get_the_errors(Datashell, 2);
 		free(p_pwd);
 		return;
 	}
 
-	set_env("OLDPWD", p_pwd, Datashell);
-	set_env("PWD", home, Datashell);
+	set_envirr("OLDPWD", p_pwd, Datashell);
+	set_envirr("PWD", home, Datashell);
 	free(p_pwd);
 	Datashell->stat = 0;
 }
