@@ -2,11 +2,10 @@
 
 /**
  * ShellExit - exits the shell
- *
  * @Datashell: data relevant (stat and argss)
  * Return: 0 on success.
  */
-int ShellExit(data_shell *Datashell)
+int ShellExit(Data_shell  *Datashell)
 {
 	unsigned int ustatus;
 	int is_digit;
@@ -21,7 +20,7 @@ int ShellExit(data_shell *Datashell)
 		big_number = ustatus > (unsigned int)INT_MAX;
 		if (!is_digit || str_len > 10 || big_number)
 		{
-			get_error(Datashell, 2);
+			Get_the_errors(Datashell, 2);
 			Datashell->stat = 2;
 			return (1);
 		}
