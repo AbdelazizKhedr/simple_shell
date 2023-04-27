@@ -54,7 +54,7 @@ typedef struct CLI_list_s
 
 /**
  * struct sl_list_s - singly linked list
- * @separrator: & ; | 
+ * @separrator: & ; |
  * @next_node: the next node
  * Description: single list  storing separrators
  */

@@ -2,7 +2,7 @@
 
 /**
  * cdshell - changes the current directory
- * @datash: data relevant
+ * @Datashell: data relevant
  * Return: 1 on success
  */
 int cdshell(Data_shell *Datashell)

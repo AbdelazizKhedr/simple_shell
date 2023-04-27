@@ -10,7 +10,7 @@
  */
 void check_envir(S_Var **h, char *in, Data_shell *Data)
 {
-	int row, chr, j, lval;	
+	int row, chr, j, lval;
 	char **_envr;
 
 	_envr = Data->_envir;

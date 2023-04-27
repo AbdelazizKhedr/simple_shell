@@ -9,7 +9,7 @@
  * @lval: length of the value.
  * Return: the address head.
  */
-S_Var *SVar_node_ Add(S_Var **head, int lvar, char *val_var, int lval)
+S_Var *SVar_node_Add(S_Var **head, int lvar, char *val_var, int lval)
 {
 	S_Var *new, *temp;
 

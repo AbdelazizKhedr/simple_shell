@@ -81,7 +81,7 @@ char *_strchr(char *s, char c)
 /**
  * _strspn - gets the length of a prefix substring.
  * @s: initial segment.
- * @accept: accepted bytes.
+ * @Accept: accepted bytes.
  * Return: the number of accepted bytes.
  */
 int _strspn(char *s, char *Accept)

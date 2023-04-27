@@ -62,9 +62,9 @@ void Sl_list_Free(sl_list **head)
  * @line: command line.
  * Return: address of the head.
  */
-CLI_list*CLI_node_end_Add(CLI_list**head, char *line)
+CLI_list *CLI_node_end_Add(CLI_list **head, char *line)
 {
-	CLI_list*new, *temp;
+	CLI_list *new, *temp;
 
 	new = malloc(sizeof(CLI_list));
 	if (new == NULL)
@@ -93,10 +93,10 @@ CLI_list*CLI_node_end_Add(CLI_list**head, char *line)
  * @head: head of the linked list.
  * Return: no return.
  */
-void CLI_list_Free(CLI_list**head)
+void CLI_list_Free(CLI_list **head)
 {
-	CLI_list*temp;
-	CLI_list*curr;
+	CLI_list *temp;
+	CLI_list *curr;
 
 	if (head != NULL)
 	{
