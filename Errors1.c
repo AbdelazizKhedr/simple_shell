@@ -47,7 +47,7 @@ char *err_Getcd(Data_shell *Datashell)
 	int length, len_id;
 	char *error, *ver_str, *msg;
 
-	ver_str = aux_itoa(Datashell->counter);
+	ver_str = itoa(Datashell->counter);
 	if (Datashell->argss[1][0] == '-')
 	{
 		msg = ": Illegal option ";
@@ -59,7 +59,7 @@ char *err_Getcd(Data_shell *Datashell)
 		len_id = _strlen(Datashell->argss[1]);
 	}
 
-	length = _strlen(Datashell->av[0]) + _strlen(Datashell->argss[0]);
+	length = _strlen(Datashell->argv[0]) + _strlen(Datashell->argss[0]);
 	length += _strlen(ver_str) + _strlen(msg) + len_id + 5;
 	error = malloc(sizeof(char) * (length + 1));
 
@@ -87,8 +87,8 @@ char *err_NotFound(Data_shell *Datashell)
 	char *error;
 	char *ver_str;
 
-	ver_str = aux_itoa(Datashell->counter);
-	length = _strlen(Datashell->av[0]) + _strlen(ver_str);
+	ver_str = itoa(Datashell->counter);
+	length = _strlen(Datashell->argv[0]) + _strlen(ver_str);
 	length += _strlen(Datashell->argss[0]) + 16;
 	error = malloc(sizeof(char) * (length + 1));
 	if (error == 0)
@@ -97,7 +97,7 @@ char *err_NotFound(Data_shell *Datashell)
 		free(ver_str);
 		return (NULL);
 	}
-	_strcpy(error, Datashell->av[0]);
+	_strcpy(error, Datashell->argv[0]);
 	_strcat(error, ": ");
 	_strcat(error, ver_str);
 	_strcat(error, ": ");
@@ -119,8 +119,8 @@ char *err_ShellExit(Data_shell *Datashell)
 	char *error;
 	char *ver_str;
 
-	ver_str = aux_itoa(Datashell->counter);
-	length = _strlen(Datashell->av[0]) + _strlen(ver_str);
+	ver_str = itoa(Datashell->counter);
+	length = _strlen(Datashell->argv[0]) + _strlen(ver_str);
 	length += _strlen(Datashell->argss[0]) + _strlen(Datashell->argss[1]) + 23;
 	error = malloc(sizeof(char) * (length + 1));
 	if (error == 0)
@@ -128,7 +128,7 @@ char *err_ShellExit(Data_shell *Datashell)
 		free(ver_str);
 		return (NULL);
 	}
-	_strcpy(error, Datashell->av[0]);
+	_strcpy(error, Datashell->argv[0]);
 	_strcat(error, ": ");
 	_strcat(error, ver_str);
 	_strcat(error, ": ");
