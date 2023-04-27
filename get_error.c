@@ -6,26 +6,26 @@
  * @eval: error value
  * Return: error
  */
-int Get_the_errors(data_shell *Datashell, int eval)
+int Get_the_errors(Data_shell  *Datashell, int eval)
 {
 	char *error;
 
 	switch (eval)
 	{
 	case -1:
-		error = error_env(Datashell);
+		error = err_environment(Datashell);
 		break;
 	case 126:
-		error = error_path_126(Datashell);
+		error = err_path126(Datashell);
 		break;
 	case 127:
-		error = error_not_found(Datashell);
+		error = err_NotFound(Datashell);
 		break;
 	case 2:
-		if (_strcmp("exit", Datashell->args[0]) == 0)
-			error = error_exit_shell(Datashell);
-		else if (_strcmp("cd", Datashell->args[0]) == 0)
-			error = error_get_cd(Datashell);
+		if (_strcmp("exit", Datashell->argss[0]) == 0)
+			error = err_ShellExit(Datashell);
+		else if (_strcmp("cd", Datashell->argss[0]) == 0)
+			error = err_Getcd(Datashell);
 		break;
 	}
 
