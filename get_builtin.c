@@ -7,13 +7,13 @@
  */
 int (*Get_built_in(char *cmd))(Data_shell *)
 {
-	builtin_t builtin[] = {
-		{ "env", _env },
-		{ "exit", exit_shell },
-		{ "setenv", _setenv },
-		{ "unsetenv", _unsetenv },
-		{ "cd", cd_shell },
-		{ "help", get_help },
+	Builtin_T builtin[] = {
+		{ "env", _envirr },
+		{ "exit", ShellExit },
+		{ "setenv", _setenvirr },
+		{ "unsetenv", _unsetenvirr },
+		{ "cd", cdshell },
+		{ "help", Get_Help },
 		{ NULL, NULL }
 	};
 	int i;
