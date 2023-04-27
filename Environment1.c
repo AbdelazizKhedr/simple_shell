@@ -56,7 +56,7 @@ char *_getenvirr(const char *name, char **_envir)
 }
 
 /**
- * _env - prints the evironment variables
+ * _envirr - prints the evironment variables
  *
  * @Datashell: data relevant.
  * Return: 1 on success.
